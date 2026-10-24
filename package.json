@@ -1,0 +1,29 @@
+{
+  "name": "skilled4u-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "mobile": "npm run start --workspace=@skilled4u/mobile",
+    "web": "npm run dev --workspace=@skilled4u/web",
+    "start": "npm run start --workspace=@skilled4u/mobile",
+    "build:web": "npm run build --workspace=@skilled4u/web",
+    "db:generate": "npm run db:generate --workspace=@skilled4u/database",
+    "db:migrate": "npm run db:migrate --workspace=@skilled4u/database",
+    "db:push": "npm run db:push --workspace=@skilled4u/database",
+    "lint": "npm run lint --workspaces",
+    "typecheck": "npm run typecheck --workspaces"
+  },
+  "overrides": {
+    "lucide-react-native": {
+      "react": "$react"
+    }
+  },
+  "devDependencies": {
+    "prettier": "^3.5.2",
+    "typescript": "~5.8.0"
+  }
+}
