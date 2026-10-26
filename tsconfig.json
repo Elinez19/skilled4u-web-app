@@ -6,12 +6,5 @@
     "strict": true,
     "skipLibCheck": true,
     "esModuleInterop": true
-  },
-  "references": [
-    { "path": "./packages/shared" },
-    { "path": "./packages/ui" },
-    { "path": "./packages/database" },
-    { "path": "./apps/mobile" },
-    { "path": "./apps/web" }
-  ]
+  }
 }

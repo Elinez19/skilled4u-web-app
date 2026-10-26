@@ -1,353 +1,150 @@
-import React, { useState } from "react";
+import React from "react";
 import {
-  Text,
   View,
-  ScrollView,
+  Text,
   TouchableOpacity,
-  SafeAreaView,
   StatusBar,
+  ScrollView,
 } from "react-native";
-import { SERVICE_CATEGORIES } from "@skilled4u/shared";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { router } from "expo-router";
 import { colors } from "@skilled4u/ui";
 import {
-  Wrench,
-  Zap,
-  Wind,
-  Tv,
   Hammer,
-  Paintbrush,
-  Cpu,
-  ShieldCheck,
   MapPin,
-  Clock,
+  Sparkles,
   ArrowRight,
-  UserCheck,
-  CheckCircle2,
+  ShieldCheck,
 } from "lucide-react-native";
+import { QuickShowcaseBar } from "../components/common/QuickShowcaseBar";
 
-export default function HomeScreen() {
-  const [activeRole, setActiveRole] = useState<"customer" | "artisan">("customer");
-  const [isOnline, setIsOnline] = useState(false);
+export default function WelcomeScreen() {
+  const handleGetStarted = () => {
+    router.push("/onboarding/category");
+  };
 
-  const renderCategoryIcon = (iconName: string) => {
-    switch (iconName) {
-      case "wrench":
-        return <Wrench size={22} color={colors.brand[500]} />;
-      case "zap":
-        return <Zap size={22} color={colors.brand[500]} />;
-      case "wind":
-        return <Wind size={22} color={colors.brand[500]} />;
-      case "tv":
-        return <Tv size={22} color={colors.brand[500]} />;
-      case "hammer":
-        return <Hammer size={22} color={colors.brand[500]} />;
-      case "brush":
-        return <Paintbrush size={22} color={colors.brand[500]} />;
-      case "cpu":
-        return <Cpu size={22} color={colors.brand[500]} />;
-      default:
-        return <Wrench size={22} color={colors.brand[500]} />;
-    }
+  const handleLogIn = () => {
+    router.replace("/(tabs)");
   };
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: "#f8fafc" }}>
+    <SafeAreaView className="flex-1 bg-white">
       <StatusBar barStyle="dark-content" />
-      <ScrollView contentContainerStyle={{ paddingBottom: 40 }} showsVerticalScrollIndicator={false}>
-        {/* Top Header & Role Switcher */}
-        <View style={{ paddingHorizontal: 20, paddingTop: 16, paddingBottom: 12 }}>
-          <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
-            <View>
-              <Text style={{ fontSize: 22, fontWeight: "800", color: "#0f172a" }}>Skilled4U</Text>
-              <Text style={{ fontSize: 13, color: "#64748b" }}>On-Demand Verified Artisans</Text>
+      <QuickShowcaseBar />
+
+      <ScrollView
+        contentContainerStyle={{ flexGrow: 1, justifyContent: "space-between", paddingHorizontal: 24, paddingTop: 12, paddingBottom: 36 }}
+        showsVerticalScrollIndicator={false}
+      >
+        {/* Brand Logo Header */}
+        <View className="items-center py-3">
+          <View className="flex-row items-center gap-3">
+            <View className="w-11 h-11 rounded-full bg-primary-blue items-center justify-center shadow-md">
+              <Hammer size={24} color="#ffffff" />
             </View>
-
-            {/* Role Switcher Pill */}
-            <View
-              style={{
-                flexDirection: "row",
-                backgroundColor: "#e2e8f0",
-                borderRadius: 20,
-                padding: 3,
-              }}
-            >
-              <TouchableOpacity
-                onPress={() => setActiveRole("customer")}
-                style={{
-                  paddingHorizontal: 12,
-                  paddingVertical: 6,
-                  borderRadius: 16,
-                  backgroundColor: activeRole === "customer" ? "#ffffff" : "transparent",
-                }}
-              >
-                <Text
-                  style={{
-                    fontSize: 12,
-                    fontWeight: "700",
-                    color: activeRole === "customer" ? colors.brand[600] : "#64748b",
-                  }}
-                >
-                  Customer
-                </Text>
-              </TouchableOpacity>
-
-              <TouchableOpacity
-                onPress={() => setActiveRole("artisan")}
-                style={{
-                  paddingHorizontal: 12,
-                  paddingVertical: 6,
-                  borderRadius: 16,
-                  backgroundColor: activeRole === "artisan" ? colors.brand[600] : "transparent",
-                }}
-              >
-                <Text
-                  style={{
-                    fontSize: 12,
-                    fontWeight: "700",
-                    color: activeRole === "artisan" ? "#ffffff" : "#64748b",
-                  }}
-                >
-                  Artisan Pro
-                </Text>
-              </TouchableOpacity>
+            <View>
+              <Text className="text-2xl font-extrabold text-dark-blue tracking-tight">CraftLink</Text>
+              <Text className="text-xs font-medium text-blue-gray mt-0.5">Skilled Hands. Closer to You.</Text>
             </View>
           </View>
         </View>
 
-        {activeRole === "customer" ? (
-          /* Customer Experience */
-          <View style={{ paddingHorizontal: 20, marginTop: 8 }}>
-            {/* Emergency Broadcast Card */}
-            <View
-              style={{
-                backgroundColor: colors.brand[600],
-                borderRadius: 20,
-                padding: 20,
-                shadowColor: colors.brand[600],
-                shadowOffset: { width: 0, height: 6 },
-                shadowOpacity: 0.25,
-                shadowRadius: 10,
-                elevation: 6,
-              }}
-            >
-              <View style={{ flexDirection: "row", alignItems: "center", gap: 6, marginBottom: 8 }}>
-                <Clock size={16} color="#ffffff" />
-                <Text style={{ color: "#e6f4fe", fontSize: 12, fontWeight: "700", textTransform: "uppercase" }}>
-                  Instant Broadcast Radar
-                </Text>
-              </View>
-              <Text style={{ color: "#ffffff", fontSize: 20, fontWeight: "800", lineHeight: 26 }}>
-                Need emergency repair? Dispatched in minutes.
-              </Text>
-              <Text style={{ color: "#cce8fd", fontSize: 13, marginTop: 6, lineHeight: 18 }}>
-                Broadcast to nearby verified pros. Guaranteed arrival verification PIN and Bachs escrow protection.
-              </Text>
+        {/* Hero Graphic Section */}
+        <View className="relative h-76 items-center justify-center my-3">
+          <View className="absolute w-72 h-72 rounded-full bg-sky-blue opacity-65" />
 
-              <TouchableOpacity
-                style={{
-                  marginTop: 16,
-                  backgroundColor: "#ffffff",
-                  paddingVertical: 12,
-                  paddingHorizontal: 18,
-                  borderRadius: 12,
-                  flexDirection: "row",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  gap: 8,
-                }}
-              >
-                <Text style={{ color: colors.brand[600], fontWeight: "700", fontSize: 14 }}>
-                  Request Emergency Pro
-                </Text>
-                <ArrowRight size={16} color={colors.brand[600]} />
-              </TouchableOpacity>
-            </View>
-
-            {/* Trust Badges */}
-            <View
-              style={{
-                flexDirection: "row",
-                justifyContent: "space-between",
-                backgroundColor: "#ffffff",
-                borderRadius: 14,
-                padding: 14,
-                marginTop: 16,
-                borderWidth: 1,
-                borderColor: "#e2e8f0",
-              }}
-            >
-              <View style={{ flexDirection: "row", alignItems: "center", gap: 6 }}>
-                <ShieldCheck size={18} color={colors.accent.emerald} />
-                <Text style={{ fontSize: 12, fontWeight: "600", color: "#334155" }}>Vetted & ID-Verified</Text>
-              </View>
-              <View style={{ flexDirection: "row", alignItems: "center", gap: 6 }}>
-                <CheckCircle2 size={18} color={colors.brand[500]} />
-                <Text style={{ fontSize: 12, fontWeight: "600", color: "#334155" }}>4-Digit Arrival PIN</Text>
-              </View>
-            </View>
-
-            {/* Service Categories Grid */}
-            <Text style={{ fontSize: 17, fontWeight: "800", color: "#0f172a", marginTop: 24, marginBottom: 12 }}>
-              Explore Services
-            </Text>
-
-            <View style={{ gap: 10 }}>
-              {SERVICE_CATEGORIES.map((cat) => (
-                <TouchableOpacity
-                  key={cat.id}
-                  style={{
-                    backgroundColor: "#ffffff",
-                    borderRadius: 14,
-                    padding: 14,
-                    borderWidth: 1,
-                    borderColor: "#e2e8f0",
-                    flexDirection: "row",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                  }}
-                >
-                  <View style={{ flexDirection: "row", alignItems: "center", gap: 12, flex: 1 }}>
-                    <View
-                      style={{
-                        width: 44,
-                        height: 44,
-                        borderRadius: 12,
-                        backgroundColor: colors.brand[50],
-                        alignItems: "center",
-                        justifyContent: "center",
-                      }}
-                    >
-                      {renderCategoryIcon(cat.icon)}
-                    </View>
-                    <View style={{ flex: 1 }}>
-                      <Text style={{ fontSize: 15, fontWeight: "700", color: "#0f172a" }}>{cat.name}</Text>
-                      <Text style={{ fontSize: 12, color: "#64748b", marginTop: 2 }} numberOfLines={1}>
-                        {cat.description}
-                      </Text>
-                    </View>
-                  </View>
-
-                  <View style={{ alignItems: "flex-end", paddingLeft: 8 }}>
-                    <Text style={{ fontSize: 11, fontWeight: "700", color: colors.brand[600] }}>
-                      ₦{cat.defaultDiagnosticFee}
-                    </Text>
-                    <Text style={{ fontSize: 10, color: "#94a3b8" }}>Call-out</Text>
-                  </View>
-                </TouchableOpacity>
-              ))}
-            </View>
+          {/* Location Pin Accents */}
+          <View className="absolute top-6 left-5 w-8 h-8 rounded-full bg-white items-center justify-center shadow-sm">
+            <MapPin size={18} color={colors.primary.blue} fill={colors.primary.skyBlue} />
           </View>
-        ) : (
-          /* Artisan Pro Experience */
-          <View style={{ paddingHorizontal: 20, marginTop: 8 }}>
-            {/* Online / Offline Toggle Card */}
-            <View
-              style={{
-                backgroundColor: isOnline ? "#065f46" : "#1e293b",
-                borderRadius: 20,
-                padding: 20,
-                shadowColor: "#000",
-                shadowOffset: { width: 0, height: 4 },
-                shadowOpacity: 0.15,
-                shadowRadius: 8,
-              }}
-            >
-              <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
-                <View>
-                  <Text style={{ color: "#94a3b8", fontSize: 12, fontWeight: "600" }}>DUTY STATUS</Text>
-                  <Text style={{ color: "#ffffff", fontSize: 20, fontWeight: "800", marginTop: 2 }}>
-                    {isOnline ? "You are Online" : "You are Offline"}
-                  </Text>
-                </View>
+          <View className="absolute top-9 right-8 w-8 h-8 rounded-full bg-white items-center justify-center shadow-sm">
+            <MapPin size={18} color={colors.primary.blue} fill={colors.primary.skyBlue} />
+          </View>
+          <View className="absolute bottom-12 left-3 w-8 h-8 rounded-full bg-white items-center justify-center shadow-sm">
+            <MapPin size={16} color={colors.primary.blue} fill={colors.primary.skyBlue} />
+          </View>
+          <View className="absolute bottom-10 right-4 w-8 h-8 rounded-full bg-white items-center justify-center shadow-sm">
+            <MapPin size={20} color={colors.primary.blue} fill={colors.primary.skyBlue} />
+          </View>
 
-                <TouchableOpacity
-                  onPress={() => setIsOnline(!isOnline)}
-                  style={{
-                    backgroundColor: isOnline ? "#10b981" : "#475569",
-                    paddingVertical: 10,
-                    paddingHorizontal: 16,
-                    borderRadius: 24,
-                  }}
-                >
-                  <Text style={{ color: "#ffffff", fontWeight: "700", fontSize: 13 }}>
-                    {isOnline ? "Go Offline" : "Go Online"}
-                  </Text>
-                </TouchableOpacity>
-              </View>
+          {/* Sparkles */}
+          <View className="absolute top-10 left-6">
+            <Sparkles size={16} color={colors.secondary.lightBlue} />
+          </View>
+          <View className="absolute bottom-12 right-7">
+            <Sparkles size={20} color={colors.secondary.lightBlue} />
+          </View>
 
-              <Text style={{ color: "#cbd5e1", fontSize: 12, marginTop: 12 }}>
-                {isOnline
-                  ? "Listening for emergency broadcast dispatches within your 15km service radius."
-                  : "Switch to Online to start receiving instant job requests and payouts."}
-              </Text>
+          {/* Artisan Visual Badge & Avatar representation */}
+          <View className="items-center justify-center w-full">
+            {/* Skyline background lines */}
+            <View className="absolute bottom-6 flex-row items-end gap-2 opacity-25">
+              <View className="w-7 h-16 bg-light-blue rounded-t" />
+              <View className="w-8 h-24 bg-light-blue rounded-t" />
+              <View className="w-7 h-28 bg-light-blue rounded-t" />
+              <View className="w-8 h-20 bg-light-blue rounded-t" />
+              <View className="w-9 h-30 bg-light-blue rounded-t" />
+              <View className="w-7 h-22 bg-light-blue rounded-t" />
             </View>
 
-            {/* Quick Stats Grid */}
-            <View style={{ flexDirection: "row", gap: 10, marginTop: 14 }}>
-              <View
-                style={{
-                  flex: 1,
-                  backgroundColor: "#ffffff",
-                  borderRadius: 14,
-                  padding: 14,
-                  borderWidth: 1,
-                  borderColor: "#e2e8f0",
-                }}
-              >
-                <Text style={{ fontSize: 12, color: "#64748b" }}>Completed Jobs</Text>
-                <Text style={{ fontSize: 20, fontWeight: "800", color: "#0f172a", marginTop: 4 }}>38</Text>
-              </View>
-              <View
-                style={{
-                  flex: 1,
-                  backgroundColor: "#ffffff",
-                  borderRadius: 14,
-                  padding: 14,
-                  borderWidth: 1,
-                  borderColor: "#e2e8f0",
-                }}
-              >
-                <Text style={{ fontSize: 12, color: "#64748b" }}>Bachs Balance</Text>
-                <Text style={{ fontSize: 20, fontWeight: "800", color: colors.accent.emerald, marginTop: 4 }}>
-                  ₦42,500.00
-                </Text>
-              </View>
-            </View>
-
-            {/* KYC & Identity Status Card */}
-            <View
-              style={{
-                backgroundColor: "#ffffff",
-                borderRadius: 14,
-                padding: 16,
-                marginTop: 14,
-                borderWidth: 1,
-                borderColor: "#e2e8f0",
-              }}
-            >
-              <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
-                <View
-                  style={{
-                    width: 36,
-                    height: 36,
-                    borderRadius: 10,
-                    backgroundColor: "#ecfdf5",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                >
-                  <UserCheck size={20} color={colors.accent.emerald} />
+            {/* Central Artisan Badge Card */}
+            <View className="items-center bg-white py-4 px-5 rounded-2xl shadow-lg border border-border-light w-64">
+              <View className="w-22 h-22 rounded-full bg-sky-blue items-center justify-center relative border-3 border-primary-blue">
+                <View className="absolute top-0.5 w-11 h-3.5 bg-dark-blue rounded-t-lg" />
+                <View className="items-center justify-center">
+                  <View className="w-14 h-14 rounded-full bg-primary-blue items-center justify-center">
+                    <Hammer size={30} color="#ffffff" />
+                  </View>
                 </View>
-                <View style={{ flex: 1 }}>
-                  <Text style={{ fontSize: 14, fontWeight: "700", color: "#0f172a" }}>Verified Professional Badge</Text>
-                  <Text style={{ fontSize: 12, color: "#64748b", marginTop: 2 }}>
-                    National ID & Trade Union certifications verified by Skilled4U Admin.
-                  </Text>
+              </View>
+
+              <View className="flex-row items-center gap-1.5 bg-success px-2.5 py-1 rounded-xl mt-3">
+                <ShieldCheck size={14} color="#ffffff" />
+                <Text className="text-xs font-bold text-white">Verified Pro Artisan</Text>
+              </View>
+
+              <View className="flex-row gap-1.5 mt-3">
+                <View className="bg-neutral-light-gray px-2 py-1 rounded-md border border-border-light">
+                  <Text className="text-xs font-semibold text-neutral-dark-gray">🔧 Plumber</Text>
+                </View>
+                <View className="bg-neutral-light-gray px-2 py-1 rounded-md border border-border-light">
+                  <Text className="text-xs font-semibold text-neutral-dark-gray">⚡ Electrician</Text>
+                </View>
+                <View className="bg-neutral-light-gray px-2 py-1 rounded-md border border-border-light">
+                  <Text className="text-xs font-semibold text-neutral-dark-gray">🪚 Carpenter</Text>
                 </View>
               </View>
             </View>
           </View>
-        )}
+        </View>
+
+        {/* Content Section */}
+        <View className="items-center mt-4">
+          <Text className="text-3xl font-extrabold text-dark-blue text-center leading-9 tracking-tight">
+            Turn Your{"\n"}Skills Into Income
+          </Text>
+          <Text className="text-sm leading-5 text-blue-gray text-center mt-3 px-3">
+            Join CraftLink and get matched with nearby clients who need your expertise.
+          </Text>
+
+          {/* Primary CTA */}
+          <TouchableOpacity
+            onPress={handleGetStarted}
+            className="flex-row items-center justify-center gap-2 bg-primary-blue w-full h-13 rounded-full mt-7 shadow-md"
+            activeOpacity={0.85}
+          >
+            <Text className="text-white text-base font-bold">Get Started</Text>
+            <ArrowRight size={18} color="#ffffff" />
+          </TouchableOpacity>
+
+          {/* Secondary Footer Link */}
+          <View className="flex-row items-center justify-center mt-4">
+            <Text className="text-sm text-blue-gray">Already have an account? </Text>
+            <TouchableOpacity onPress={handleLogIn}>
+              <Text className="text-sm font-bold text-primary-blue">Log In</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
       </ScrollView>
     </SafeAreaView>
   );
